@@ -2,14 +2,13 @@
 
 dirname=$(date +%d-%m-%y--%H-%M);
 mkdir $dirname;
-test_rounds=5 #number of benchmark runs with y-cruncher
 
 #For loop for multiple runs of y-cruncher
 #number of loops is set in the arguments
 for i in $(seq $1); # to use vargs, find out why $1 only runs 1
 do
 	#y-cruncher ran with no pauses, skip warnings, no digitals in output and 500 000 000 pi digits, output saved to a folder with date and time
-	./y-cruncher skip-warnings pause:-2 bench 50m -od:0 -o $dirname;
+	./y-cruncher skip-warnings pause:-2 bench 500m -od:0 -o $dirname;
 done
 
 touch summary_$dirname.txt
