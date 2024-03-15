@@ -32,7 +32,8 @@ do
 	#$(awk -v  sum1="$summarum" -v sum2="$(grep -i 'Total Computation time' -F "$filename" | cut -d ' ' -f 7)" 'BEGIN {printf "%.3f", sum1+sum2; exit(0)}' )
 	
 	#Sequential Output 
-	soc_s=(awk -v  sum1="$soc_s" -v sum2="$soc_s+$(echo $latest_line | cut -d "," -f 10)" 'BEGIN {printf "%.3f", sum1+sum2; exit(0)}' ) #10th entry in latest_line (In bonnie, 477k would be 477 in the latest_line, 273m would be 279846(but why, rounding?))
+	soc_s=$(awk -v  sum1="$soc_s" -v sum2="$(echo $latest_line | cut -d "," -f 10)" 'BEGIN {printf "%.3f", sum1+sum2; exit(0)}' ) #10th entry in latest_line (In bonnie, 477k would be 477 in the latest_line, 273m would be 279846(but why, rounding?))
+	echo $latest_line | cut -d "," -f 10
 	echo $soc_s
 	soc_c=$soc_c+$(echo $latest_line | cut -d "," -f 11) #11th entry in latest_line
 	soc_l=$soc_l+$(echo $latest_line | cut -d "," -f 39) #39th entry in latest_line
