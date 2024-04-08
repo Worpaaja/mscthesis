@@ -1,8 +1,8 @@
 #!/bin/bash
 
 dirname=$(date +%d-%m-%y--%H-%M);
-mkdir benchmark;
-mkdir benchmark/$dirname;
+mkdir streambenchmark;
+mkdir streambenchmark/$dirname;
 
 #For loop for multiple runs of STREAM
 #number of loops is set in the arguments
@@ -14,12 +14,12 @@ mkdir benchmark/$dirname;
 for i in $(seq $1);
 do
 	#stream ran with default settings, compiled from C with gcc -O stream.c -o stream
-	./stream > benchmark/$dirname/$i.txt;
+	./stream > streambenchmark/$dirname/$i.txt;
 done
 
-touch benchmark/summary_$dirname.txt
-sed '12,30d' benchmark/$dirname/1.txt >> benchmark/summary_$dirname.txt
-echo "" >> benchmark/summary_$dirname.txt
+touch streambenchmark/summary_$dirname.txt
+sed '12,30d' streambenchmark/$dirname/1.txt >> streambenchmark/summary_$dirname.txt
+echo "" >> streambenchmark/summary_$dirname.txt
 
 copy_bestrate="0"
 scale_bestrate="0"
@@ -32,10 +32,10 @@ add_avg_time="0"
 triad_avg_time="0"
 
 
-for filename in benchmark/$dirname/*.txt;
+for filename in streambenchmark/$dirname/*.txt;
 do	
-	sed '1,21d' $filename | sed '29,30d' >> benchmark/summary_$dirname.txt 
-	echo "" >> benchmark/summary_$dirname.txt
+	sed '1,21d' $filename | sed '29,30d' >> streambenchmark/summary_$dirname.txt 
+	echo "" >> streambenchmark/summary_$dirname.txt
 	copy_bestrate=$(awk -v  sum1="$copy_bestrate" -v sum2="$(grep -i "Copy:" -F "$filename" | tr -s " " | cut -d ' ' -f 2)" 'BEGIN {printf "%.1f", sum1+sum2; exit(0)}' )
 	copy_avg_time=$(awk -v  sum1="$copy_avg_time" -v sum2="$(grep -i "Copy:" -F "$filename" | tr -s " " | cut -d ' ' -f 3)" 'BEGIN {printf "%.5f", sum1+sum2; exit(0)}' )
 	
@@ -52,7 +52,7 @@ do
 done
 
 
-echo -e "\nMeans of all runs: \n" >> benchmark/summary_$dirname.txt
+echo -e "\nMeans of all runs: \n" >> streambenchmark/summary_$dirname.txt
 
 #Adding the mean of runs to the summary file
 
@@ -72,9 +72,9 @@ triad_bestrate=$(awk -v  dividend="$triad_bestrate" -v divisor="$1" 'BEGIN {prin
 triad_avg_time=$(awk -v  dividend="$triad_avg_time" -v divisor="$1" 'BEGIN {printf "%.5f", dividend/divisor; exit(0)}' ) 
 
 	
-echo -e "Function \t Best Rate MB/s \t Avg time" >> benchmark/summary_$dirname.txt
-echo -e "Copy: \t \t "$copy_bestrate" \t \t "$copy_avg_time"" >> benchmark/summary_$dirname.txt
-echo -e "Scale: \t \t "$scale_bestrate" \t \t "$scale_avg_time"" >> benchmark/summary_$dirname.txt
-echo -e "Add: \t \t "$add_bestrate" \t \t "$add_avg_time"" >> benchmark/summary_$dirname.txt
-echo -e "Triad: \t \t "$triad_bestrate" \t \t "$triad_avg_time"" >> benchmark/summary_$dirname.txt
-cat benchmark/summary_$dirname.txt
+echo -e "Function \t Best Rate MB/s \t Avg time" >> streambenchmark/summary_$dirname.txt
+echo -e "Copy: \t \t "$copy_bestrate" \t \t "$copy_avg_time"" >> streambenchmark/summary_$dirname.txt
+echo -e "Scale: \t \t "$scale_bestrate" \t \t "$scale_avg_time"" >> streambenchmark/summary_$dirname.txt
+echo -e "Add: \t \t "$add_bestrate" \t \t "$add_avg_time"" >> streambenchmark/summary_$dirname.txt
+echo -e "Triad: \t \t "$triad_bestrate" \t \t "$triad_avg_time"" >> streambenchmark/summary_$dirname.txt
+cat streambenchmark/summary_$dirname.txt

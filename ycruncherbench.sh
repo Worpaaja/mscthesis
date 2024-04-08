@@ -1,8 +1,8 @@
 #!/bin/bash
 
 dirname=$(date +%d-%m-%y--%H-%M);
-mkdir benchmark;
-mkdir benchmark/$dirname;
+mkdir ycrunchbenchmark;
+mkdir ycrunchbenchmark/$dirname;
 
 #For loop for multiple runs of y-cruncher
 #number of loops is set in the arguments
@@ -14,12 +14,12 @@ mkdir benchmark/$dirname;
 for i in $(seq $1);
 do
 	#y-cruncher ran with no pauses, skip warnings, no digitals in output and 500 000 000 pi digits, output saved to a folder with date and time
-	./y-cruncher skip-warnings pause:-2 bench 500m -od:0 -o benchmark/$dirname;
+	./y-cruncher skip-warnings pause:-2 bench 500m -od:0 -o ycrunchbenchmark/$dirname;
 done
 
 touch summary_$dirname.txt
 summarum="0"
-for filename in benchmark/$dirname/*.txt;
+for filename in ycrunchbenchmark/$dirname/*.txt;
 do	
 	grep -i 'Total Computation Time' -F "$filename" >> summary_$dirname.txt
 	summarum=$(awk -v  sum1="$summarum" -v sum2="$(grep -i 'Total Computation time' -F "$filename" | cut -d ' ' -f 7)" 'BEGIN {printf "%.3f", sum1+sum2; exit(0)}' )
@@ -30,4 +30,4 @@ summarum=$(awk -v  dividend="$summarum" -v divisor="$1" 'BEGIN {printf "%.3f", d
 echo "Mean of all runs:" >> summary_$dirname.txt
 echo "$summarum" >> summary_$dirname.txt
 cat summary_$dirname.txt
-cp ./summary_$dirname.txt ./benchmark
+cp ./summary_$dirname.txt ./ycrunchbenchmark
