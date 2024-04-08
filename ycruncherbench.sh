@@ -14,7 +14,7 @@ mkdir benchmark/$dirname;
 for i in $(seq $1);
 do
 	#y-cruncher ran with no pauses, skip warnings, no digitals in output and 500 000 000 pi digits, output saved to a folder with date and time
-	./y-cruncher skip-warnings pause:-2 bench 50m -od:0 -o benchmark/$dirname;
+	./y-cruncher skip-warnings pause:-2 bench 500m -od:0 -o benchmark/$dirname;
 done
 
 touch summary_$dirname.txt
