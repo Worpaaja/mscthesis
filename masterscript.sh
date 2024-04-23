@@ -4,7 +4,7 @@ cd "$(dirname "$0")"
 
 echo "Running y-cruncher"
 
-cd y-cruncher/
+cd ycruncher/
 
 ./ycruncherbench.sh $1
 
