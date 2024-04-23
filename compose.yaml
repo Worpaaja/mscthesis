@@ -1,0 +1,20 @@
+services:
+  benchmark:
+    image: benchmarktools:latest
+    container_name: benchmarkingtools
+    volumes:
+      - ycrunch:/y-cruncher/ycrunchbenchmark
+      - stream:/stream/streambenchmark
+      - bonnie:/bonnie/bonniebenchmark
+      - sysbenchcpu:/sysbench/benchmark_cpu
+      - sysbenchio:/sysbench/benchmark_fileio
+      - sysbenchmem:/sysbench/benchmark_mem
+    command: ./masterscript.sh 50
+
+volumes:
+  ycrunch:
+  stream:
+  bonnie:
+  sysbenchcpu:
+  sysbenchio:
+  sysbenchmem:

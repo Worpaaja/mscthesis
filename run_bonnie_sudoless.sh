@@ -12,7 +12,7 @@ mkdir bonniebenchmark/$dirname;
 for i in $(seq $1);
 do
 	#bonnie++ ran with tmp folder as the folder used, 16G filesize(it's recommended to use file size of twice your RAM size), and as root
-	sudo bonnie++ -d /tmp -s 16G -u root > bonniebenchmark/$dirname/bonnie_$i.txt;
+	bonnie++ -d /tmp -s 16G -u root > bonniebenchmark/$dirname/bonnie_$i.txt;
 done	#-x <number_of_tests> could be used to run multiple tests, -q to set quiet mode
 	#Maybe automagically setting -s to double ram size?
 
@@ -25,7 +25,7 @@ rcc_s=0;rcc_c=0;rcc_l=0;rcr_s=0;rcr_c=0;rcr_l=0;rcd_s=0;rcd_c=0;rcd_l=0;
 
 for filename in bonniebenchmark/$dirname/*.txt;
 do
-	latest_line=$(cat $filename | tail -1) 
+	latest_line=$(cat $filename | tail -1) #how to do floating point calculation efficiently?
 	#Creating sums of each attribute
 	#In Bonnie:
 	#_s denotes seconds, _c denotes CPU usage in percents, _l denotes latency
