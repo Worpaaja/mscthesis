@@ -12,7 +12,7 @@ mkdir bonniebenchmark/$dirname;
 for i in $(seq $1);
 do
 	#bonnie++ ran with tmp folder as the folder used, 16G filesize(it's recommended to use file size of twice your RAM size), and as root
-	bonnie++ -s 16G -u root > bonniebenchmark/$dirname/bonnie_$i.txt;
+	bonnie++ -s 16G > bonniebenchmark/$dirname/bonnie_$i.txt;
 done	#-x <number_of_tests> could be used to run multiple tests, -q to set quiet mode
 	#Maybe automagically setting -s to double ram size?
 
