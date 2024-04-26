@@ -9,11 +9,8 @@ mkdir benchmark_mem/$dirname/seqr;
 mkdir benchmark_mem/$dirname/randr;
 mkdir benchmark_mem/$dirname/randw;
 
-#For loop for multiple runs of y-cruncher
+#For loop for multiple runs of sysbench memory test
 #number of loops is set in the arguments
-
-#prints all variables
-#echo $@
 
 #4 different test cases, sequential write, sequential read, random write, random read, other than that, all defaults
 echo "Starting sequential write: "
