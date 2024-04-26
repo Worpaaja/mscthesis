@@ -1,6 +1,6 @@
 services:
   benchmark:
-    image: benchmarktools:latest
+    image: benchmarkingtools:latest
     container_name: benchmarkingtools
     volumes:
       - ycrunch:/y-cruncher/ycrunchbenchmark
