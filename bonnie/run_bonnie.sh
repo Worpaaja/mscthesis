@@ -4,17 +4,16 @@ dirname=$(date +%d-%m-%y--%H-%M);
 mkdir bonniebenchmark;
 mkdir bonniebenchmark/$dirname;
 
-#Maybe a combined meaner since some results can be ++++, could help with different machines
-#Maybe run bonnie++ with -x (($1)), multiple lines in one file which you can then take out, mean, and maybe use bon csv2txt to make pretty table
 
 #For loop for multiple runs of bonnie++
 #number of loops is set in the arguments
 for i in $(seq $1);
 do
 	#bonnie++ ran with tmp folder as the folder used, 16G filesize(it's recommended to use file size of twice your RAM size), and as root
-	sudo bonnie++ -d /tmp -s 16G -u root > bonniebenchmark/$dirname/bonnie_$i.txt;
+#	sudo bonnie++ -d /tmp -s 16G -u root > bonniebenchmark/$dirname/bonnie_$i.txt;
+
+	sudo bonnie++ -s 16G -u root > bonniebenchmark/$dirname/bonnie_$i.txt;
 done	#-x <number_of_tests> could be used to run multiple tests, -q to set quiet mode
-	#Maybe automagically setting -s to double ram size?
 
 #initiliazing variables for summary 
 touch bonniebenchmark/summary_$dirname.txt
@@ -208,4 +207,3 @@ echo "$(echo $last_line | cut -d "," -f 1),$(echo $last_line | cut -d "," -f 2),
 
 echo "$(echo $last_line | cut -d "," -f 1), $(echo $last_line | cut -d "," -f 2), $(echo $last_line | cut -d "," -f 3), $(echo $last_line | cut -d "," -f 4), $(echo $last_line | cut -d "," -f 5), $(echo $last_line | cut -d "," -f 6), $(echo $last_line | cut -d "," -f 7), $(echo $last_line | cut -d "," -f 8), $(echo $last_line | cut -d "," -f 9), "$mean_soc_s", "$mean_soc_c", "$mean_sob_s", "$mean_sob_c", "$mean_sor_s", "$mean_sor_c", "$mean_sic_s", "$mean_sic_c", "$mean_sib_s", "$mean_sib_c", "$mean_rs_s", "$mean_rs_c", $(echo $last_line | cut -d "," -f 22), $(echo $last_line | cut -d "," -f 23), $(echo $last_line | cut -d "," -f 24), $(echo $last_line | cut -d "," -f 25), $(echo $last_line | cut -d "," -f 26), "$mean_scc_s", "$mean_scc_c", "$mean_scr_s", "$mean_scr_c", "$mean_scd_s", "$mean_scd_c", "$mean_rcc_s", "$mean_rcc_c", "$mean_rcr_s", "$mean_rcr_c", "$mean_rcd_s", "$mean_rcd_c","$mean_soc_l", "$mean_sob_l", "$mean_sor_l", "$mean_sic_l", "$mean_sib_l", "$mean_rs_l", "$mean_scc_l", "$mean_scr_l", "$mean_scd_l", "$mean_rcc_l", "$mean_rcr_l", "$mean_rcd_l" " | tr -d "[:space:]" >> bonniebenchmark/summary_$dirname.txt
 
-cat bonniebenchmark/summary_$dirname.txt
