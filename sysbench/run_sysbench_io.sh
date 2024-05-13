@@ -69,7 +69,7 @@ do
 	seqw_thr=$(awk -v  sum1="$seqw_thr" -v sum2="$(grep -i 'written, MiB/s' -F "benchmark_fileio/$dirname/seqw/$i.txt" | tr -d " a-zA-Z:/," )" 'BEGIN {printf "%.5f", sum1+sum2; exit(0)}' )
 	seqw_opers=$(awk -v  sum1="$seqw_opers" -v sum2="$(grep -i 'writes/s' -F "benchmark_fileio/$dirname/seqw/$i.txt" | tr -d " a-zA-Z:/" )" 'BEGIN {printf "%.3f", sum1+sum2; exit(0)}' )
 	seqw_fs=$(awk -v  sum1="$seqw_fs" -v sum2="$(grep -i 'fsyncs/s' -F "benchmark_fileio/$dirname/seqw/$i.txt" | tr -d " a-zA-Z:/" )" 'BEGIN {printf "%.3f", sum1+sum2; exit(0)}' )
-	echo -e "$(grep -i 'written, MiB/s' -F "benchmark_fileio/$dirname/seqw/$i.txt" | tr -d " a-zA-Z:/" )"
+
 	
 	#Seq read
 	echo "Sequential read:" >> benchmark_fileio/summary_$dirname.txt
@@ -120,7 +120,7 @@ do
 	echo -e "\n" >> benchmark_fileio/summary_$dirname.txt
 done
 
-echo -e "Throughput speeds: $seqw_thr\n$seqr_thr\n$seqrw_thr\n$randw_thr\n$randr_thr "
+
 #Adding the means of runs to the summary file
 seqw_opers=$(awk -v  dividend="$seqw_opers" -v divisor="$1" 'BEGIN {printf "%.2f", dividend/divisor; exit(0)}' )
 seqw_thr=$(awk -v  dividend="$seqw_thr" -v divisor="$1" 'BEGIN {printf "%.2f", dividend/divisor; exit(0)}' )
