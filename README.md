@@ -13,6 +13,7 @@ masterscript.sh has been created so that cloning the repo and running install.sh
 
 <br>
 <br>
+
 __Y-Cruncher from http://www.numberworld.org/y-cruncher/__
 y-cruncher v0.8.4.9538-static used
 <br>
