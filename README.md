@@ -22,3 +22,5 @@ __Bonnie++ used, https://doc.coker.com.au/projects/bonnie/__
 __Sysbench from https://github.com/akopytov/sysbench__
 <br>
 __Stream from https://www.cs.virginia.edu/stream/__
+
+NOTE: locales might affect script usage, trying to use . (dot) as a decimal separator everywhere
