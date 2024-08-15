@@ -42,8 +42,6 @@ do
 
 	latest_line=$(cat $filename | tail -1 | tr -d "s" | sed 's/u/*0.000001/g' | sed 's/m/*0.001/g') 
 	
-	#REMOVE
-	#echo "$latest_line"
 	#Creating sums of each attribute
 	#In Bonnie:
 	#_s denotes seconds, _c denotes CPU usage in percents, _l denotes latency
@@ -181,26 +179,6 @@ do
 		rcd_c_runs=$((rcd_c_runs-1))
 	fi	
 	
-	#REMOVE
-	#echo "\n$(echo $latest_line | cut -d "," -f 27-38 --output-delimiter="  ")"
-	
-	#echo "$scc_s_runs"
-	#echo "$scc_c_runs"
-
-	#echo "$scr_s_runs"
-	#echo "$scr_c_runs"
-	
-	#echo "$scd_s_runs"
-	#echo "$scd_c_runs"
-
-	#echo "$rcc_s_runs"
-	#echo "$rcc_c_runs"
-
-	#echo "$rcr_s_runs"
-	#echo "$rcr_c_runs"
-
-	#echo "$rcd_s_runs"
-	#echo "$rcd_c_runs"
 	
 done
  
@@ -266,15 +244,6 @@ rcc_l_mean=$(awk -v  dividend="$rcc_l_sum" -v divisor="$run_number" 'BEGIN {prin
 rcr_l_mean=$(awk -v  dividend="$rcr_l_sum" -v divisor="$run_number" 'BEGIN {printf "%.8f", dividend/divisor; exit(0)}' )
 rcd_l_mean=$(awk -v  dividend="$rcd_l_sum" -v divisor="$run_number" 'BEGIN {printf "%.8f", dividend/divisor; exit(0)}' )
 
-#REMOVE
-#echo "\nmeans"
-#echo "$rcd_l_mean"
-#echo "SOC: $soc_s_mean  $soc_c_mean  $soc_l_mean  SOB $sob_s_mean  $sob_c_mean  $sob_l_mean  SOR: $sor_s_mean  $sor_c_mean  $sor_l_mean"
-#echo "SIC: $sic_s_mean  $sic_c_mean  $sic_l_mean  SIB $sib_s_mean  $sib_c_mean  $sib_l_mean  RS $rs_s_mean  $rs_c_mean  $rs_l_mean"
-#echo "SCC $scc_s_mean  $scc_c_mean  $scc_l_mean  SCR $scr_s_mean  $scr_c_mean  $scr_l_mean  SCD $scd_s_mean  $scd_c_mean  $scd_l_mean"
-#echo "RCC $rcc_s_mean  $rcc_c_mean  $rcc_l_mean  RCR $rcr_s_mean  $rcr_c_mean  $rcr_l_mean RCD $rcd_s_mean $rcd_c_mean $rcd_l_mean"
-
-
 
 #Calculate variance and then standard deviation
 #std = root(sum((x-mean)squared)/number_of_tests)
@@ -290,12 +259,7 @@ rcc_s=0;rcc_c=0;rcc_l=0;rcr_s=0;rcr_c=0;rcr_l=0;rcd_s=0;rcd_c=0;rcd_l=0;
 for filename in $dir_path/*.txt;
 do
 	latest_line=$(cat $filename | tail -1 | tr -d "s" | sed 's/u/*0.000001/g' | sed 's/m/*0.001/g') 
-	
-	#REMOVE
-	#echo "$latest_line"
-	
-	#REMOVE
-	#echo "\n$latest_line"
+
 	
 	#Creating sums of each attribute
 	#In Bonnie:
@@ -308,16 +272,10 @@ do
 	soc_s=$(awk -v  var3="$soc_s" -v var1="$(echo $latest_line | cut -d "," -f 10)" -v  var2="$soc_s_mean" 'BEGIN {printf "%.8f", var3+((var1-var2)^2); exit(0)}' ) #10th entry in latest_line 
 	soc_c=$(awk -v  var3="$soc_c" -v var1="$(echo $latest_line | cut -d "," -f 11)" -v  var2="$soc_c_mean" 'BEGIN {printf "%.8f", var3+((var1-var2)^2); exit(0)}' ) #11th entry in latest_line
 	
-	#REMOVE
-	#echo "\n$(echo $latest_line | cut -d "," -f 39)"
-	#echo "$soc_l"
-	#echo "$soc_l_mean"
 	
 	latency=$(awk -v  var1="$(echo $latest_line | cut -d "," -f 39 | cut -d "*" -f 1)" -v var2="$(echo $latest_line | cut -d "," -f 39 | cut -d "*" -f 2)" 'BEGIN {printf "%.8f", var1*var2; exit(0)}' )
 	soc_l=$(awk -v  var3="$soc_l" -v var1="$latency" -v  var2="$soc_l_mean" 'BEGIN {printf "%.8f", var3+((var1-var2)^2); exit(0)}' ) #39th entry in latest_line
 	
-	#REMOVE
-	#echo "$soc_l"
 	
 	sob_s=$(awk -v  var3="$sob_s" -v var1="$(echo $latest_line | cut -d "," -f 12)" -v  var2="$sob_s_mean" 'BEGIN {printf "%.8f", var3+((var1-var2)^2); exit(0)}' ) #12th entry
 	sob_c=$(awk -v  var3="$sob_c" -v var1="$(echo $latest_line | cut -d "," -f 13)" -v  var2="$sob_c_mean" 'BEGIN {printf "%.8f", var3+((var1-var2)^2); exit(0)}' ) #13th entry in latest_line
@@ -427,19 +385,10 @@ do
 	
 	latency=$(awk -v  var1="$(echo $latest_line | cut -d "," -f 50 | cut -d "*" -f 1)" -v var2="$(echo $latest_line | cut -d "," -f 50 | cut -d "*" -f 2)" 'BEGIN {printf "%.8f", var1*var2; exit(0)}' )
 	rcd_l=$(awk -v  var3="$rcd_l" -v var1="$latency" -v  var2="$rcd_l_mean" 'BEGIN {printf "%.8f", var3+((var1-var2)^2); exit(0)}' ) #50th entry in latest_line
-	
-	#REMOVE
-	#echo "$rcd_l"
+
 	
 done
 
-
-#REMOVE
-#echo "\nprepost-variance"
-#echo "SOC: $soc_s  $soc_c  $soc_l  SOB $sob_s  $sob_c  $sob_l  SOR: $sor_s  $sor_c  $sor_l"
-#echo "SIC: $sic_s  $sic_c  $sic_l  SIB $sib_s  $sib_c  $sib_l  RS $rs_s  $rs_c  $rs_l"
-#echo "SCC $scc_s  $scc_c  $scc_l  SCR $scr_s  $scr_c  $scr_l  SCD $scd_s  $scd_c  $scd_l"
-#echo "RCC $rcc_s  $rcc_c  $rcc_l  RCR $rcr_s  $rcr_c  $rcr_l RCD $rcd_s $rcd_c $rcd_l"
 
 
 
@@ -501,12 +450,6 @@ var_rcc_l=$(awk -v  dividend="$rcc_l" -v divisor="$run_number" 'BEGIN {printf "%
 var_rcr_l=$(awk -v  dividend="$rcr_l" -v divisor="$run_number" 'BEGIN {printf "%.8f", dividend/divisor; exit(0)}' )
 var_rcd_l=$(awk -v  dividend="$rcd_l" -v divisor="$run_number" 'BEGIN {printf "%.8f", dividend/divisor; exit(0)}' )
 
-#REMOVE
-#echo "\nafter-variance"
-#echo "SOC: $var_soc_s  $var_soc_c  $var_soc_l  SOB $var_sob_s  $var_sob_c  $var_sob_l  SOR: $var_sor_s  $var_sor_c  $var_sor_l"
-#echo "SIC: $var_sic_s  $var_sic_c  $var_sic_l  SIB $var_sib_s  $var_sib_c  $var_sib_l  RS $var_rs_s  $var_rs_c  $var_rs_l"
-#echo "SCC $var_scc_s  $var_scc_c  $var_scc_l  SCR $var_scr_s  $var_scr_c  $var_scr_l  SCD $var_scd_s  $var_scd_c  $var_scd_l"
-#echo "RCC $var_rcc_s  $var_rcc_c  $var_rcc_l  RCR $var_rcr_s  $var_rcr_c  $var_rcr_l RCD $var_rcd_s $var_rcd_c $var_rcd_l"
 
 #Calculate standard deviation by taking the square root of variance
 
@@ -565,14 +508,6 @@ std_rcd_c=$(awk -v  variance="$var_rcd_c" 'BEGIN {printf "%.8f", sqrt(variance);
 std_rcc_l=$(awk -v  variance="$var_rcc_l" 'BEGIN {printf "%.8f", sqrt(variance); exit(0)}' )
 std_rcr_l=$(awk -v  variance="$var_rcr_l" 'BEGIN {printf "%.8f", sqrt(variance); exit(0)}' )
 std_rcd_l=$(awk -v  variance="$var_rcd_l" 'BEGIN {printf "%.8f", sqrt(variance); exit(0)}' )
-
-#REMOVE
-#echo "\nafter-variance"
-#echo "SOC: $std_soc_s  $std_soc_c  $std_soc_l  SOB $std_sob_s  $std_sob_c  $std_sob_l  SOR: $std_sor_s  $std_sor_c  $std_sor_l"
-#echo "SIC: $std_sic_s  $std_sic_c  $std_sic_l  SIB $std_sib_s  $std_sib_c  $std_sib_l  RS $std_rs_s  $std_rs_c  $std_rs_l"
-#echo "SCC $std_scc_s  $std_scc_c  $std_scc_l  SCR $std_scr_s  $std_scr_c  $std_scr_l  SCD $std_scd_s  $std_scd_c  $std_scd_l"
-#echo "RCC $std_rcc_s  $std_rcc_c  $std_rcc_l  RCR $std_rcr_s  $std_rcr_c  $std_rcr_l RCD $std_rcd_s $std_rcd_c $std_rcd_l"
-
 
 
 
