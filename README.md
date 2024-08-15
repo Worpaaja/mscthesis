@@ -1,8 +1,6 @@
-# This the repository for my masters thesis at University of Oulu
+# This the repository for my Master's thesis at University of Oulu
 
 Remember to set privileges to scripts with chmod +x <script.sh>.
-
-masterscript.sh has been created so that cloning the repo and running install.sh should be enough to start all scripts in a sequence.
 
 ## HOW TO USE
 1) clone or download repo
@@ -17,10 +15,10 @@ masterscript.sh has been created so that cloning the repo and running install.sh
 __Y-Cruncher from http://www.numberworld.org/y-cruncher/__
 y-cruncher v0.8.4.9538-static used
 <br>
-__Bonnie++ used, https://doc.coker.com.au/projects/bonnie/__
+__Bonnie++ from https://doc.coker.com.au/projects/bonnie/__
 <br>
 __Sysbench from https://github.com/akopytov/sysbench__
 <br>
 __Stream from https://www.cs.virginia.edu/stream/__
 
-NOTE: locales might affect script usage, trying to use . (dot) as a decimal separator everywhere
+NOTE: locales might affect script usage, such as comma (,) and period(.) in decimal numbers.
