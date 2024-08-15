@@ -8,7 +8,9 @@ Remember to set privileges to scripts with chmod +x <script.sh>.
 3) run install.sh
 4) run masterscript.sh number_of_runs
    For the number of runs, the thesis used 50. Running the masterscript with 50 on the used older laptop took over 8 hours.
-
+<br>
+<br>
+Docker image can be found at https://hub.docker.com/repository/docker/worpaaja/mscthesis-benchmark/general
 <br>
 <br>
 
